@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Add your own styles here */
+        .cart {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 300px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .cart-total {
+            font-weight: bold;
+        }
+    </style>
+    <title>Shopping Cart Example</title>
+</head>
+<body>
+
+    <div id="store">
+        <h2>Product Catalog</h2>
+        <div class="product" data-id="1" data-name="Product 1" data-price="10.00">
+            <p>Product 1 - $10.00</p>
+            <button onclick="addToCart(1, 'Product 1', 10.00)">Add to Cart</button>
+        </div>
+        <div class="product" data-id="2" data-name="Product 2" data-price="20.00">
+            <p>Product 2 - $20.00</p>
+            <button onclick="addToCart(2, 'Product 2', 20.00)">Add to Cart</button>
+        </div>
+        <!-- Add more products as needed -->
+    </div>
+
+    <div id="cart" class="cart">
+        <h2>Shopping Cart</h2>
+        <div id="cart-items"></div>
+        <div class="cart-total">Total: $<span id="cart-total">0.00</span></div>
+        <button onclick="checkout()">Checkout</button>
+    </div>
+
+    <script>
+        let cart = [];
+
+        function addToCart(id, name, price) {
+            const item = { id, name, price };
+            cart.push(item);
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartItemsElement = document.getElementById("cart-items");
+            const cartTotalElement = document.getElementById("cart-total");
+
+            cartItemsElement.innerHTML = "";
+            let total = 0;
+
+            cart.forEach(item => {
+                const cartItemElement = document.createElement("div");
+                cartItemElement.classList.add("cart-item");
+                cartItemElement.innerHTML = `<span>${item.name}</span><span>$${item.price.toFixed(2)}</span>`;
+                cartItemsElement.appendChild(cartItemElement);
+
+                total += item.price;
+            });
+
+            cartTotalElement.textContent = total.toFixed(2);
+        }
+
+        function checkout() {
+            // Implement your checkout logic here
+            alert("Checkout functionality not implemented in this example.");
+        }
+    </script>
+
+</body>
+</html>
